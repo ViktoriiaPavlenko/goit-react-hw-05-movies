@@ -3,8 +3,9 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import toastError from '../helpers/toastError';
-import * as apiService from '../services/apiService';
+import toastError from '../../helpers/toastError';
+import * as apiService from '../../services/apiService';
+import styles from './MoviesPage.module.css';
 
 export default function MoviesPage() {
   const [movieToFind, setMovieToFind] = useState('');
@@ -43,19 +44,22 @@ export default function MoviesPage() {
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           type="text"
           placeholder="Search movie"
           value={movieToFind}
           onChange={e => setMovieToFind(e.target.value)}
         />
 
-        <button type="submit">Search</button>
+        <button className={styles.btn} type="submit">
+          Search
+        </button>
       </form>
 
       {foundMovies.length > 0 && (
-        <ul>
+        <ul className={styles.list}>
           {foundMovies.map(({ id, title, poster_path, name }) => (
-            <li key={id}>
+            <li className={styles.item} key={id}>
               <Link
                 to={{
                   pathname: `/movies/${id}`,
@@ -74,6 +78,7 @@ export default function MoviesPage() {
                       : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
                   }
                   alt={title}
+                  className={styles.image}
                 />
                 <p>{title || name}</p>
               </Link>

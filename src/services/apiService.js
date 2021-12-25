@@ -2,7 +2,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = '5898c2a7f8f53a06b245e3feed95846b';
 
 export function getTrending() {
-  return fetch(`${BASE_URL}/trending/all/day?api_key=${API_KEY}`).then(
+  return fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`).then(
     response => response.json(),
   );
 }

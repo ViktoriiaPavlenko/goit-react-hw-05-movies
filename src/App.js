@@ -6,18 +6,18 @@ import Container from './components/Container/Container';
 import AppBar from './components/AppBar/AppBar';
 
 const HomePage = lazy(() =>
-  import('./views/HomePage' /* webpackChunkName: "home-page" */),
+  import('./views/HomePage/HomePage' /* webpackChunkName: "home-page" */),
 );
 const MoviesPage = lazy(() =>
-  import('./views/MoviesPage' /* webpackChunkName: "movies-page" */),
+  import('./views/MoviesPage/MoviesPage' /* webpackChunkName: "movies-page" */),
 );
 const MovieDetailsPage = lazy(() =>
   import(
-    './views/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+    './views/MovieDetails/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
   ),
 );
 const NotFound = lazy(() =>
-  import('./views/NotFound' /* webpackChunkName: "not-found" */),
+  import('./views/NotFound/NotFound' /* webpackChunkName: "not-found" */),
 );
 
 export default function App() {
@@ -27,7 +27,7 @@ export default function App() {
       <Suspense
         fallback={
           <>
-            <Loader type="Hearts" color="#FFC0CB" height={80} width={80} />
+            <Loader type="Hearts" color="#39CDD8" height={80} width={80} />
           </>
         }
       >

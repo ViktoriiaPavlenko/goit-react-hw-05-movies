@@ -8,11 +8,12 @@ import {
 } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import * as apiService from '../services/apiService';
+import * as apiService from '../../services/apiService';
+import styles from './MovieDetailsPage.module.css';
 
-const Cast = lazy(() => import('./Cast' /* webpackChunkName: "cast" */));
+const Cast = lazy(() => import('../Cast/Cast' /* webpackChunkName: "cast" */));
 const Reviews = lazy(() =>
-  import('./Reviews' /* webpackChunkName: "reviews" */),
+  import('../Reviews/Reviews' /* webpackChunkName: "reviews" */),
 );
 
 export default function MovieDetailsPage() {
@@ -25,21 +26,18 @@ export default function MovieDetailsPage() {
     apiService.getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
-  // const base_img_url = 'https://image.tmdb.org/t/p/w342/';
   return (
-    <>
-      <button type="button" onClick={() => navigate('/', { replace: true })}>
+    <div>
+      <button
+        className={styles.button}
+        type="button"
+        onClick={() => navigate('/', { replace: true })}
+      >
         Go back
       </button>
       {movie && (
-        <div>
+        <div className={styles.details}>
           <div>
-            {/* <img
-              src={`${base_img_url}${movie.poster_path}`}
-              alt={movie.title}
-              height="300"
-              width="250"
-            ></img> */}
             <img
               src={
                 movie.poster_path
@@ -47,12 +45,11 @@ export default function MovieDetailsPage() {
                   : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
               }
               alt={movie.title}
-              height="320"
-              width="250"
+              className={styles.image}
             />
           </div>
           <div>
-            <div>
+            <div className={styles.info}>
               <h1>
                 {movie.title || movie.name}({movie.release_date.slice(0, 4)})
               </h1>
@@ -65,32 +62,31 @@ export default function MovieDetailsPage() {
                   <li key={el.id}> {el.name}</li>
                 ))}
               </ul>
-              <p>Additional information</p>
-              <div className="container">
-                <NavLink to="cast">Cast</NavLink>
-                <NavLink to="reviews">Reviews</NavLink>
-                <Suspense
-                  fallback={
-                    <>
-                      <Loader
-                        type="Hearts"
-                        color="#FFC0CB"
-                        height={80}
-                        width={80}
-                      />
-                    </>
-                  }
-                >
-                  <Routes>
-                    <Route path="cast" element={<Cast movieId={movieId} />} />
-                    <Route path="reviews" element={<Reviews />} />
-                  </Routes>
-                </Suspense>
-              </div>
             </div>
           </div>
         </div>
       )}
-    </>
+      <div>
+        <h3>Additional information:</h3>
+        <NavLink to="cast" className={styles.link}>
+          Cast
+        </NavLink>
+        <NavLink to="reviews" className={styles.link}>
+          Reviews
+        </NavLink>
+        <Suspense
+          fallback={
+            <>
+              <Loader type="Hearts" color="#FFC0CB" height={80} width={80} />
+            </>
+          }
+        >
+          <Routes>
+            <Route path="cast" element={<Cast movieId={movieId} />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Routes>
+        </Suspense>
+      </div>
+    </div>
   );
 }

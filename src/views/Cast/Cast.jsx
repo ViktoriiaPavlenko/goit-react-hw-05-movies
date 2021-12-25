@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import * as apiService from '../services/apiService';
+import * as apiService from '../../services/apiService';
+import styles from './Cast.module.css';
 
 export default function Cast({ movieId }) {
   const [credits, setCredits] = useState([]);
@@ -12,10 +13,10 @@ export default function Cast({ movieId }) {
   }, [movieId]);
 
   return (
-    <ul id="cast">
+    <ul id="cast" className={styles.list}>
       {credits &&
         credits.map(credit => (
-          <li key={credit.id}>
+          <li key={credit.id} className={styles.item}>
             <img
               src={
                 credit.profile_path
@@ -23,9 +24,10 @@ export default function Cast({ movieId }) {
                   : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
               }
               alt={credit.original_name}
+              className={styles.image}
             />
             <div>
-              <p>{credit.original_name}</p>
+              <h3>{credit.original_name}</h3>
               <p>Character: {credit.character}</p>
             </div>
           </li>

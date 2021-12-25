@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import * as apiService from '../services/apiService';
+import * as apiService from '../../services/apiService';
+import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const [trends, setTrends] = useState(null);
@@ -11,18 +12,14 @@ export default function HomePage() {
     });
   }, []);
 
-  // const imgUrl = 'https://image.tmdb.org/t/p/w342/';
-
   return (
     <>
-      <h1>Trending today</h1>
+      <h1 className={styles.title}>Trending today</h1>
       {trends && (
-        <ul>
+        <ul className={styles.list}>
           {trends.map(item => (
-            <li key={item.id}>
+            <li key={item.id} className={styles.item}>
               <NavLink to={`movies/${item.id}`}>
-                <h2>{item.title || item.name}</h2>
-                {/* <img src={`${imgUrl}${item.poster_path}`} alt={item.title} /> */}
                 <img
                   src={
                     item.poster_path
@@ -30,7 +27,9 @@ export default function HomePage() {
                       : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
                   }
                   alt={item.title}
+                  className={styles.image}
                 />
+                <h2 className={styles.listTitle}>{item.title || item.name}</h2>
               </NavLink>
             </li>
           ))}
