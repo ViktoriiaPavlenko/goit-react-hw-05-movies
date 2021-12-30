@@ -76,14 +76,20 @@ export default function MovieDetailsPage() {
         <h3>Additional information:</h3>
         <NavLink
           to="cast"
-          state={{ from: location, label: 'Cast' }}
+          state={{
+            from: location.state.from,
+            label: location.state.label,
+          }}
           className={styles.link}
         >
           Cast
         </NavLink>
         <NavLink
           to="reviews"
-          state={{ from: location.state.from, label: 'Reviews' }}
+          state={{
+            from: location.state.from,
+            label: location.state.label,
+          }}
           className={styles.link}
         >
           Reviews
