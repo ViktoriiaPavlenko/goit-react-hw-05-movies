@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import * as apiService from '../../services/apiService';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const [trends, setTrends] = useState(null);
+
+  const location = useLocation();
 
   useEffect(() => {
     apiService.getTrending().then(response => {
@@ -19,7 +21,10 @@ export default function HomePage() {
         <ul className={styles.list}>
           {trends.map(item => (
             <li key={item.id} className={styles.item}>
-              <NavLink to={`movies/${item.id}`}>
+              <NavLink
+                to={`movies/${item.id}`}
+                state={{ from: location, label: 'Home' }}
+              >
                 <img
                   src={
                     item.poster_path

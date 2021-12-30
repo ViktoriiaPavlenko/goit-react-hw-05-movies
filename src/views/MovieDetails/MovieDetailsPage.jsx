@@ -4,6 +4,7 @@ import {
   Route,
   NavLink,
   useParams,
+  useLocation,
   useNavigate,
 } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
@@ -21,18 +22,23 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     apiService.getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
+  const goBack = () => {
+    navigate(
+      location.state?.from?.pathname
+        ? `${location.state?.from?.pathname}${location.state?.from?.search}`
+        : '/',
+    );
+  };
+
   return (
     <div>
-      <button
-        className={styles.button}
-        type="button"
-        onClick={() => navigate('/', { replace: true })}
-      >
+      <button className={styles.button} type="button" onClick={goBack}>
         Go back
       </button>
       {movie && (
@@ -68,10 +74,18 @@ export default function MovieDetailsPage() {
       )}
       <div>
         <h3>Additional information:</h3>
-        <NavLink to="cast" className={styles.link}>
+        <NavLink
+          to="cast"
+          state={{ from: location, label: 'Cast' }}
+          className={styles.link}
+        >
           Cast
         </NavLink>
-        <NavLink to="reviews" className={styles.link}>
+        <NavLink
+          to="reviews"
+          state={{ from: location.state.from, label: 'Reviews' }}
+          className={styles.link}
+        >
           Reviews
         </NavLink>
         <Suspense

@@ -63,13 +63,8 @@ export default function MoviesPage() {
               <Link
                 to={{
                   pathname: `/movies/${id}`,
-                  state: {
-                    from: {
-                      location,
-                      label: 'Back to Movies',
-                    },
-                  },
                 }}
+                state={{ from: location, label: 'Search' }}
               >
                 <img
                   src={
