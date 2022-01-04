@@ -75,7 +75,7 @@ export default function MoviesPage() {
                   alt={title}
                   className={styles.image}
                 />
-                <p>{title || name}</p>
+                <h2 className={styles.listTitle}>{title || name}</h2>
               </Link>
             </li>
           ))}
