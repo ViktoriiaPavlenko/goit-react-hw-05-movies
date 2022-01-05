@@ -77,8 +77,8 @@ export default function MovieDetailsPage() {
         <NavLink
           to="cast"
           state={{
-            from: location.state.from,
-            label: location.state.label,
+            from: location.state?.from ?? '/',
+            label: location.state?.label,
           }}
           className={styles.link}
         >
@@ -87,8 +87,8 @@ export default function MovieDetailsPage() {
         <NavLink
           to="reviews"
           state={{
-            from: location.state.from,
-            label: location.state.label,
+            from: location.state?.from ?? '/',
+            label: location.state?.label,
           }}
           className={styles.link}
         >
