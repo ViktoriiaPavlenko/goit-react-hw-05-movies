@@ -19,3 +19,7 @@
   height: 430px;
   object-fit: cover;
 }
+
+.noCast {
+  font-weight: 500;
+}
